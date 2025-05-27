@@ -1,13 +1,15 @@
-const listaTareas = document.querySelector("#listaTareas"); 
-const tareaInput = document.querySelector("#nuevaTarea"); 
-const agregarBtn = document.querySelector("#agregarTarea"); 
+const listaTareas = document.querySelector("#listaTareas"); // ID actualizado
+const tareaInput = document.querySelector("#nuevaTarea"); // ID actualizado
+const agregarBtn = document.querySelector("#agregarTarea"); // ID actualizado
 
-const totalTareasSpan = document.querySelector("#totalTareas"); 
-const tareasRealizadasSpan = document.querySelector("#tareasRealizadas"); 
+// Nuevos elementos para el resumen
+const totalTareasSpan = document.querySelector("#totalTareas"); // ID actualizado
+const tareasRealizadasSpan = document.querySelector("#tareasRealizadas"); // ID actualizado
 
+// Array para almacenar las tareas, cada una como un objeto { id, descripcion, realizada }
 const tareas = [];
 
-/
+// Función para renderizar o actualizar la lista de tareas en el HTML
 function renderizarTareas() {
     let html = "";
     if (tareas.length === 0) {
@@ -15,7 +17,8 @@ function renderizarTareas() {
     } else {
         for (let i = 0; i < tareas.length; i++) {
             const tarea = tareas[i];
-      
+            // Si la tarea está realizada, añade la clase CSS 'tarea-realizada'
+            // También añadimos un atributo data-id para poder identificar la tarea fácilmente al hacer clic
             html += `
                 <li data-id="${tarea.id}" class="${tarea.realizada ? 'tarea-realizada' : ''}">
                     <span>${tarea.descripcion}</span>
@@ -25,12 +28,14 @@ function renderizarTareas() {
         }
     }
     listaTareas.innerHTML = html;
-    actualizarResumen(); 
+    actualizarResumen(); // Llama a la función para actualizar el resumen cada vez que la lista cambia
 }
 
+// Nueva función para actualizar el resumen de tareas
 function actualizarResumen() {
     const total = tareas.length;
-       const realizadas = tareas.filter(tarea => tarea.realizada).length;
+    // Filtra las tareas que tienen 'realizada: true' para contar las realizadas
+    const realizadas = tareas.filter(tarea => tarea.realizada).length;
 
     totalTareasSpan.textContent = total;
     tareasRealizadasSpan.textContent = realizadas;
